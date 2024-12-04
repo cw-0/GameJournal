@@ -2,7 +2,6 @@ import csv
 import os
 import pyfiglet
 import time
-from ClearConsole import clear_console
 from pathlib import Path
 import sys
 from colorama import init, Fore
@@ -432,6 +431,12 @@ def menu():
 
 def random_color():
     return random.choice(colors)
+
+def clear_console():
+    if os.name == "nt":
+        os.system("cls")
+    else:
+        os.system("clear")
 
 
 
