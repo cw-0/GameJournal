@@ -1,2 +1,2 @@
 # GameJournal
-Game Jouranal to track games beaten, games in progress, and your review of games
+Game Journal to track Games Beaten, Games in Progress, and Your Review of games
