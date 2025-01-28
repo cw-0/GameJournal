@@ -2,6 +2,7 @@ import csv
 import os
 import pyfiglet
 import time
+from ClearConsole import clear_console
 from pathlib import Path
 import sys
 from colorama import init, Fore
@@ -10,8 +11,8 @@ import random
 init(autoreset=True)
 
 username = ""
-log_file = "log.csv"
-games = "games.csv"
+log_file = Path("log.csv")
+games_file = Path("games.csv")
 
 RED = Fore.RED
 GREEN = Fore.GREEN 
@@ -32,8 +33,8 @@ def main():
 def intro():
     global username
 
-    if Path("log.csv").is_file():
-        with open("log.csv", "r") as file:
+    if log_file.is_file():
+        with log_file.open() as file:
             reader = csv.reader(file)
             for row in reader:
                 username = row[0]
@@ -42,7 +43,7 @@ def intro():
         print(f"Welcome to {username}'s Game Journal!")
     else:
         username = input("What is your name? ")
-        with open("log.csv", "a", newline="") as file:
+        with log_file.open("w", newline="") as file:
             writer = csv.writer(file)
             writer.writerow([username])
         clear_console()
@@ -66,7 +67,7 @@ def menu():
             clear_console()
             print("\n=-- Games List --=\n\n")
             try:
-                with open("games.csv", "r") as file:
+                with games_file.open() as file:
                     games_reader = csv.reader(file)
                     games_data = {
                         row[0].strip().lower(): row[1].strip()
@@ -84,6 +85,12 @@ def menu():
                                     review_score = row[2].strip()
                                     reviews[game_name] = review_score
 
+                    current_games = {
+                        name: completed
+                        for name, completed in sorted(games_data.items())
+                        if completed.lower() == "current"
+                    }
+
                     incomplete_games = {
                         name: completed
                         for name, completed in sorted(games_data.items())
@@ -95,7 +102,18 @@ def menu():
                         if completed.lower() == "true"
                     }
 
-                    print("=-- Incomplete Games --=\n")
+                    print("=-- In Progress Games --=\n")
+                    for game_name, completed in current_games.items():
+                        status = "In Progress"
+                        give_color = "\033[1;33m"
+                        reset_color = "\033[0m"
+                        score = reviews.get(game_name, "N/A")
+                        print(
+                            f"{game_name.title()} : {give_color}{status}{reset_color}"
+                        )
+
+
+                    print("\n\n=-- Incomplete Games --=\n")
                     for game_name, completed in incomplete_games.items():
                         status = "Incomplete"
                         give_color = "\033[91m"
@@ -166,14 +184,19 @@ def menu():
                     clear_console()
                     break
                 while True:
-                    completed = input("Have you beat the game? ").strip().lower()
-                    if completed not in ["yes", "no", "y", "n"]:
+                    completed = input("Status\n---------\n\n1. In Progress\n2. Haven't Beat\n3. Beat the game\n\n> ").strip().lower()
+                    if "1" in completed:
+                        completed_status = "current"
+                        break
+                    elif "2" in completed:
+                        completed_status = "true"
+                        break
+                    elif "3" in completed:
+                        completed_status = "false"
+                        break
+                    else:
                         print("Please answer with yes or no\n")
                         continue
-                    else:
-                        break
-
-                completed_status = "True" if completed in ["yes", "y"] else "False"
 
                 with open("games.csv", "a") as file:
                     writer = csv.writer(file)
@@ -431,12 +454,6 @@ def menu():
 
 def random_color():
     return random.choice(colors)
-
-def clear_console():
-    if os.name == "nt":
-        os.system("cls")
-    else:
-        os.system("clear")
 
 
 
