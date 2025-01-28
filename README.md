@@ -6,3 +6,8 @@ A simple Python application that allows you to track your video games, update th
 - Track Games: Add games and categorize them as "In Progress", "Incomplete", or "Completed".
 - Status Update: Change the status of the games as you progress through them.
 - Reviews: Leave a review for each game you track.
+
+
+![Games In Progress](README_imgs/inprogress.png)
+![Games Incomplete](README_imgs/incomplete.png)
+![Games Completed](README_imgs/completed.png)
