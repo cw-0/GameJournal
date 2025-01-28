@@ -399,7 +399,7 @@ class GUI:
 
         status_popup = tk.Toplevel(self.root)
         status_popup.config(bg=self.theme[2])
-        status_popup.geometry("500x400")
+        status_popup.geometry("800x600")
 
         header = tk.Label(status_popup,
                          text="Change Game Status".upper(),
