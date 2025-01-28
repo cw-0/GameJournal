@@ -276,7 +276,9 @@ class GUI:
                     config.set("IN PROGRESS", enter_game.get().strip(), "in progress")
                     with open("config.ini", "w") as config_file:
                         config.write(config_file)
-                    self.progress_list.insert(tk.END, enter_game.get().strip().title())
+                    self.progress_list.delete(0, tk.END)
+                    for game in sorted(config["IN PROGRESS"]):
+                        self.progress_list.insert(tk.END, game.title())
                     messagebox.showinfo(title="Success", message="Added game to Games in Progress")
                     popup.destroy()
                 else:
@@ -287,7 +289,9 @@ class GUI:
                     config.set("INCOMPLETE", enter_game.get().strip(), "incomplete")
                     with open("config.ini", "w") as config_file:
                         config.write(config_file)
-                    self.incomplete_list.insert(tk.END, enter_game.get().strip().title())
+                    self.incomplete_list.delete(0, tk.END)
+                    for game in sorted(config["INCOMPLETE"]):
+                        self.incomplete_list.insert(tk.END, game.title())
                     messagebox.showinfo(title="Success", message="Added game to Incomplete Games")
                     popup.destroy()
                 else:
@@ -298,7 +302,9 @@ class GUI:
                     config.set("COMPLETED", enter_game.get().strip(), "completed")
                     with open("config.ini", "w") as config_file:
                         config.write(config_file)
-                    self.completed_list.insert(tk.END, enter_game.get().strip().title())
+                    self.completed_list.delete(0, tk.END)
+                    for game in sorted(config["COMPLETED"]):
+                        self.completed_list.insert(tk.END, game.title())
                     messagebox.showinfo(title="Success", message="Added game to Completed Games")
                     popup.destroy()
                 else:
