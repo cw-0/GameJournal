@@ -1,3 +1,5 @@
+import math
+from howlongtobeatpy import HowLongToBeat
 import re
 from pathlib import Path
 import tkinter as tk
@@ -122,6 +124,16 @@ class GUI:
                                   command=lambda : self.remove_game_function("In Progress"))
         self.remove_game.grid(row=2, column=0, sticky=tk.W+tk.E)
 
+        self.timetobeat_btn = tk.Button(btn_frame,
+                                  text="How Long To Beat",
+                                  font=("Arial", 16),
+                                  fg=self.theme[3],
+                                  bg=self.theme[7],
+                                  relief=RAISED,
+                                  bd=5,
+                                  command=lambda : self.time_to_beat_function("In Progress"))
+        self.timetobeat_btn.grid(row=3, column=0, sticky=tk.W+tk.E)
+
         btn_frame.pack(fill="x")
 
         # --- TAB 2 - Incomplete Games ---
@@ -169,6 +181,17 @@ class GUI:
                                   command=lambda : self.remove_game_function("Incomplete"))
         self.remove_game.grid(row=2, column=0, sticky=tk.W+tk.E)
     
+        self.timetobeat_btn = tk.Button(btn_frame,
+                                  text="How Long To Beat",
+                                  font=("Arial", 16),
+                                  fg=self.theme[3],
+                                  bg=self.theme[7],
+                                  relief=RAISED,
+                                  bd=5,
+                                  command=lambda : self.time_to_beat_function("Incomplete"))
+        self.timetobeat_btn.grid(row=3, column=0, sticky=tk.W+tk.E)
+
+
         btn_frame.pack(fill="x")
 
         # --- TAB 3 - Completed Games ---
@@ -600,6 +623,33 @@ class GUI:
             if messagebox.askyesno(title="Create Review", message=f"Would you like to create a review for {item.title()}?"):
                 self.leave_review(game=item)
             return
+    
+    def time_to_beat_function(self, current_page):
+        if current_page == "In Progress":
+            page_list = self.progress_list
+        elif current_page == "Incomplete":
+            page_list = self.incomplete_list
+        else:
+            messagebox.showerror(title="Error", message="Dev Error: Didnt pass in page")
+            return
+            
+        try:
+            index = page_list.curselection()
+            if not index:
+                messagebox.showerror(title="Error", message="No Game Selected")
+                return
+            item = page_list.get(index)
+        except Exception as ex:
+            return
+        
+        results = HowLongToBeat().search(item, similarity_case_sensitive=False)
+        if results is not None and len(results) > 0:
+            best_element = max(results, key=lambda element: element.similarity)
+            messagebox.showinfo(
+                title="Time To Beat",
+                message=f"Game: {best_element.game_name}\nMain Story: {math.ceil(best_element.main_story * 2) / 2} Hours\nCompletionist: {math.ceil(best_element.completionist * 2) / 2} Hours")
+        else:
+            messagebox.showerror(title="Invalid Name", message=f"{item} Not Found on HowLongToBeat. Re-add with precise title. Sorry!")
 
 
 
