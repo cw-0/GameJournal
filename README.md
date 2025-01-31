@@ -6,6 +6,7 @@ A simple Python application that allows you to track your video games, update th
 - Track Games: Add games and categorize them as "In Progress", "Incomplete", or "Completed".
 - Status Update: Change the status of the games as you progress through them.
 - Reviews: Leave a review for each game you track.
+- Time to Beat: See how long it takes to beat and 100% a game according to HowLongToBeat.com
 
 ### GUI
 ![Games In Progress](README_imgs/inprogress.png)
