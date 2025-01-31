@@ -12,6 +12,7 @@ A simple Python application that allows you to track your video games, update th
 ![Games In Progress](README_imgs/inprogress.png)
 ![Games Incomplete](README_imgs/incomplete.png)
 ![Games Completed](README_imgs/completed.png)
+![Time To Beat](README_imgs/TimeToBeat2.png)
 
 
 ### TUI
