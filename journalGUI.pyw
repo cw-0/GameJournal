@@ -43,6 +43,7 @@ class GUI:
         self.theme = self.get_theme()
         self.root = tk.Tk()
         self.root.geometry("1000x800")
+        self.root.minsize(600, 725)
         self.root.title("Game Journal")
         self.root.config(bg=self.theme[0])
         self.header = tk.Label(self.root,
@@ -273,6 +274,7 @@ class GUI:
         self.add_location = add_location
         popup = tk.Toplevel(self.root)
         popup.geometry("600x300")
+        popup.minsize(300, 200)
         popup.config(bg=self.theme[0])
 
         label = tk.Label(popup,
@@ -355,6 +357,7 @@ class GUI:
     def leave_review(self, game="No Game"):
         review_popup = tk.Toplevel(self.root)
         review_popup.geometry("800x600")
+        review_popup.minsize(300, 425)
         review_popup.config(bg=self.theme[0])
 
         header = tk.Label(review_popup,
@@ -429,6 +432,7 @@ class GUI:
         status_popup = tk.Toplevel(self.root)
         status_popup.config(bg=self.theme[2])
         status_popup.geometry("800x600")
+        status_popup.minsize(375, 410)
 
         header = tk.Label(status_popup,
                          text="Change Game Status".upper(),
@@ -565,6 +569,7 @@ class GUI:
         def open_review(review):
             review_win = tk.Toplevel(self.root)
             review_win.geometry("1000x800")
+            review_win.minsize(500, 650)
             review_win.config(bg=self.theme[2])
             
             header = tk.Label(review_win,
