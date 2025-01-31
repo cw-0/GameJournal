@@ -1,6 +1,6 @@
 # GameJournal
 ## Tracking Your Games Better == Clearing Your Backlog
-A simple Python application that allows you to track your video games, update their completion status, and leave reviews. The app uses a text-based user interface or a graphical user interface built with Tkinter, with data stored in a config.ini file.
+A simple Python application that allows you to track your video games, update their completion status, leave reviews, and view their Average Time to Beat. The app uses a text-based user interface or a graphical user interface built with Tkinter, with data stored in a config.ini file.
 
 ### Features
 - Track Games: Add games and categorize them as "In Progress", "Incomplete", or "Completed".
