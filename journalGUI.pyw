@@ -647,7 +647,7 @@ class GUI:
             best_element = max(results, key=lambda element: element.similarity)
             messagebox.showinfo(
                 title="Time To Beat",
-                message=f"Game: {best_element.game_name}\nMain Story: {math.ceil(best_element.main_story * 2) / 2} Hours\nCompletionist: {math.ceil(best_element.completionist * 2) / 2} Hours")
+                message=f"Game: {best_element.game_name}\n\n\nMain Story: {math.ceil(best_element.main_story * 2) / 2} Hours\n\nMain Story + Extras: {math.ceil(best_element.main_extra * 2) / 2} Hours\n\nCompletionist: {math.ceil(best_element.completionist * 2) / 2} Hours")
         else:
             messagebox.showerror(title="Invalid Name", message=f"{item} Not Found on HowLongToBeat. Re-add with precise title. Sorry!")
 
